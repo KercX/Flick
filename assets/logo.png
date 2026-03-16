@@ -1,6 +1,30 @@
-<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org">
-  <circle cx="250" cy="250" r="240" stroke="#58a6ff" stroke-width="10"/>
-  <path d="M100 250C100 250 160 150 250 150C340 150 400 250 400 250C400 250 340 350 250 350C160 350 100 250 100 250Z" stroke="#58a6ff" stroke-width="8"/>
-  <circle cx="250" cy="250" r="40" fill="#58a6ff"/>
-  <path d="M230 180L280 240L220 260L270 320" stroke="#ffeb3b" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #0d1117; /* Темний фон GitHub */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        img {
+            width: 400px;
+            height: 400px;
+            object-fit: contain;
+            /* Якщо твоєї картинки нема, покажеться рамка зі світінням */
+            border: 2px dashed #58a6ff; 
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ВАЖЛИВО: Перевір, щоб файл реально лежав у папці assets під назвою logo.png -->
+    <img src="assets/logo.png" onerror="this.src='https://cdn-icons-png.flaticon.com'; this.style.border='none';">
+
+</body>
+</html>
+
