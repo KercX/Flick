@@ -2,28 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flick OSINT | Dashboard</title>
     <style>
-        :root { --bg: #0d1117; --side: #161b22; --accent: #58a6ff; --text: #adbac7; --success: #238636; }
-        body { margin: 0; display: flex; height: 100vh; background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; }
+        :root { --bg: #0d1117; --side: #161b22; --accent: #58a6ff; --text: #adbac7; --border: #30363d; }
+        body { margin: 0; display: flex; height: 100vh; background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; }
         
-        .sidebar { width: 280px; background: var(--side); border-right: 1px solid #30363d; display: flex; flex-direction: column; }
-        .logo-area { padding: 25px; text-align: center; border-bottom: 1px solid #30363d; }
-        .logo-svg { width: 70px; filter: drop-shadow(0 0 10px var(--accent)); }
+        /* Sidebar */
+        .sidebar { width: 220px; background: var(--side); border-right: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; }
+        .logo-area { padding: 25px 15px; text-align: center; border-bottom: 1px solid var(--border); }
+        .logo-svg { width: 55px; filter: drop-shadow(0 0 8px var(--accent)); }
         
-        .nav-btn { padding: 15px 20px; border: none; background: none; color: var(--text); text-align: left; cursor: pointer; font-size: 15px; border-bottom: 1px solid #21262d; width: 100%; }
+        .nav-btn { padding: 14px 20px; border: none; background: none; color: var(--text); text-align: left; cursor: pointer; font-size: 14px; border-bottom: 1px solid #21262d; width: 100%; transition: 0.2s; }
         .nav-btn:hover { background: #21262d; color: var(--accent); }
-        .active { border-left: 5px solid var(--accent); background: #21262d; color: var(--accent); }
+        .active { border-left: 4px solid var(--accent); background: #21262d; color: var(--accent); font-weight: bold; }
 
-        .main { flex: 1; padding: 40px; overflow-y: auto; }
-        .tab-content { display: none; }
+        /* Main Content */
+        .main { flex: 1; padding: 30px; overflow-y: auto; }
+        .tab-content { display: none; max-width: 800px; animation: fadeIn 0.3s ease; }
         .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .card { background: #161b22; padding: 20px; border-radius: 10px; border: 1px solid #30363d; margin-bottom: 20px; }
-        input[type="text"] { background: #0d1117; border: 1px solid var(--accent); color: white; padding: 10px; width: 250px; border-radius: 5px; }
-        .test-btn { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .result-box { margin-top: 20px; display: none; }
-        .social-link { display: block; margin: 10px 0; color: var(--accent); text-decoration: none; font-weight: bold; }
+        .card { background: #161b22; padding: 20px; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 20px; }
+        h1, h2, h3 { color: var(--accent); margin-top: 0; }
+        
+        /* Test Engine Styles */
+        .search-box { display: flex; gap: 10px; margin-bottom: 20px; }
+        input { background: #0d1117; border: 1px solid var(--border); color: white; padding: 10px; flex: 1; border-radius: 6px; outline: none; }
+        input:focus { border-color: var(--accent); }
+        .btn { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .btn:hover { opacity: 0.9; }
+
+        .result-item { display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #21262d; text-decoration: none; color: var(--text); transition: 0.2s; }
+        .result-item:hover { background: #21262d; color: var(--accent); }
+        .icon-label { margin-right: 15px; font-size: 18px; }
     </style>
 </head>
 <body>
@@ -31,76 +43,92 @@
 <div class="sidebar">
     <div class="logo-area">
         <svg class="logo-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org">
-            <circle cx="250" cy="250" r="200" stroke="#58a6ff" stroke-width="15" fill="none"/>
+            <circle cx="250" cy="250" r="200" stroke="#58a6ff" stroke-width="20" fill="none"/>
             <path d="M280 100 L180 270 H250 L220 400 L320 230 H250 L280 100 Z" fill="#58a6ff"/>
         </svg>
-        <h2 style="color:var(--accent)">FLICK v1.3</h2>
+        <h2 style="margin:10px 0 0; letter-spacing: 2px;">FLICK</h2>
     </div>
-    <button class="nav-btn active" onclick="openTab(event, 'home')">🏠 Home</button>
-    <button class="nav-btn" onclick="openTab(event, 'test')">🧪 Test Engine</button>
-    <button class="nav-btn" onclick="openTab(event, 'social')">🔍 Social Intelligence</button>
-    <button class="nav-btn" onclick="openTab(event, 'docs')">📖 Documentation</button>
+    <button class="nav-btn active" onclick="tab(event, 'home')">🏠 Home</button>
+    <button class="nav-btn" onclick="tab(event, 'test')">🧪 Test Engine</button>
+    <button class="nav-btn" onclick="tab(event, 'about')">ℹ️ About Info</button>
 </div>
 
 <div class="main">
+    <!-- Home -->
     <div id="home" class="tab-content active">
         <h1>Welcome to Flick OSINT</h1>
         <div class="card">
-            <p>This is your central command for digital investigations. Use the <b>Test Engine</b> to simulate a live search.</p>
+            <p>Flick is a high-performance intelligence gathering tool. It utilizes multi-language cores (Python, C++, Java, JS) to provide deep digital investigations across social networks and web infrastructure.</p>
         </div>
     </div>
 
-    <!-- Твоя нова вкладка Test -->
+    <!-- Test Engine -->
     <div id="test" class="tab-content">
-        <h1>🧪 Live Test Simulator</h1>
+        <h2>🧪 OSINT Test Simulator</h2>
         <div class="card">
-            <p>Enter a username or phone number (for WhatsApp) to test links:</p>
-            <input type="text" id="targetInput" placeholder="Enter target name...">
-            <button class="test-btn" onclick="runTest()">Analyze Target</button>
-
-            <div id="results" class="result-box">
-                <hr style="border: 0.5px solid #30363d;">
-                <h3>Results for <span id="resTarget" style="color:var(--accent)"></span>:</h3>
-                <a id="linkTikTok" class="social-link" target="_blank">📱 TikTok Profile</a>
-                <a id="linkYoutube" class="social-link" target="_blank">🎥 YouTube Channel</a>
-                <a id="linkWA" class="social-link" target="_blank">💬 WhatsApp Chat</a>
+            <div class="search-box">
+                <input type="text" id="username" placeholder="Enter target username or ID...">
+                <button class="btn" onclick="search()">Scan Target</button>
+            </div>
+            
+            <div id="results" style="display:none;">
+                <p>Scanning results for: <b id="displayUser" style="color:var(--accent)"></b></p>
+                <div class="card" style="padding: 0;">
+                    <a id="res_tg" class="result-item" target="_blank"><span class="icon-label">✈️</span> Telegram Profile</a>
+                    <a id="res_tw" class="result-item" target="_blank"><span class="icon-label">🐦</span> Twitter (X)</a>
+                    <a id="res_fb" class="result-item" target="_blank"><span class="icon-label">📘</span> Facebook</a>
+                    <a id="res_vk" class="result-item" target="_blank"><span class="icon-label">🌐</span> VKontakte</a>
+                    <a id="res_tt" class="result-item" target="_blank"><span class="icon-label">📱</span> TikTok</a>
+                    <a id="res_yt" class="result-item" target="_blank"><span class="icon-label">🎥</span> YouTube Channel</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <div id="social" class="tab-content">
-        <h1>Social Network Analysis</h1>
-        <p>Active modules: TikTok, YouTube, WhatsApp API integration.</p>
-    </div>
-
-    <div id="docs" class="tab-content">
-        <h1>Docs</h1>
-        <p>Run <code>python main.py</code> in your terminal for the full experience.</p>
+    <!-- About Info -->
+    <div id="about" class="tab-content">
+        <h2>ℹ️ About Flick Engine</h2>
+        <div class="card">
+            <h3>Technical Stack</h3>
+            <ul>
+                <li><b>Python:</b> Main logic and web scraping.</li>
+                <li><b>C++ / C#:</b> Flick-Core for high-speed network scanning.</li>
+                <li><b>Java:</b> Enterprise data management and API stability.</li>
+                <li><b>JS / TS:</b> Modern frontend and dashboard rendering.</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Capabilities</h3>
+            <p>• Identity identification across 10+ social platforms including <b>VK, TikTok, and Telegram</b>.<br>
+               • Fast port scanning and DNS enumeration.<br>
+               • Digital footprint analysis and report generation.</p>
+        </div>
+        <p style="font-size: 11px; opacity: 0.5;">Flick OSINT Project - For Educational Purposes Only.</p>
     </div>
 </div>
 
 <script>
-    function openTab(evt, tabName) {
-        var i, tabcontent, navbtn;
-        tabcontent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabcontent.length; i++) tabcontent[i].style.display = "none";
-        navbtn = document.getElementsByClassName("nav-btn");
-        for (i = 0; i < navbtn.length; i++) navbtn[i].className = navbtn[i].className.replace(" active", "");
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
+    function tab(e, id) {
+        let contents = document.getElementsByClassName("tab-content");
+        for (let x of contents) x.style.display = "none";
+        let btns = document.getElementsByClassName("nav-btn");
+        for (let b of btns) b.classList.remove("active");
+        document.getElementById(id).style.display = "block";
+        e.currentTarget.classList.add("active");
     }
 
-    function runTest() {
-        var target = document.getElementById('targetInput').value;
-        if (!target) return alert('Enter something first!');
-        
-        document.getElementById('resTarget').innerText = target;
+    function search() {
+        let val = document.getElementById('username').value;
+        if (!val) return;
+        document.getElementById('displayUser').innerText = val;
         document.getElementById('results').style.display = 'block';
         
-        // Генеруємо посилання
-        document.getElementById('linkTikTok').href = 'https://www.tiktok.com@' + target;
-        document.getElementById('linkYoutube').href = 'https://www.youtube.com@' + target;
-        document.getElementById('linkWA').href = 'https://wa.me' + target;
+        document.getElementById('res_tg').href = `https://t.me{val}`;
+        document.getElementById('res_tw').href = `https://twitter.com{val}`;
+        document.getElementById('res_fb').href = `https://facebook.com{val}`;
+        document.getElementById('res_vk').href = `https://vk.com{val}`;
+        document.getElementById('res_tt').href = `https://tiktok.com{val}`;
+        document.getElementById('res_yt').href = `https://youtube.com{val}`;
     }
 </script>
 
