@@ -1,56 +1,16 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title>Flick OSINT Icon</title>
-    <style>
-        body {
-            background-color: #0d1117; /* Темна тема GitHub */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        /* Сама іконка через код */
-        .icon {
-            width: 300px;
-            height: 300px;
-            border: 4px solid #58a6ff;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            box-shadow: 0 0 20px #58a6ff;
-        }
-        .icon::before {
-            content: "F";
-            color: #58a6ff;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 150px;
-            font-weight: bold;
-        }
-        /* Анімація радара */
-        .radar {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 2px solid rgba(88, 166, 255, 0.3);
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-    </style>
-</head>
-<body>
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org">
+  <!-- Фон і зовнішнє коло радара -->
+  <circle cx="250" cy="250" r="230" stroke="#58a6ff" stroke-width="12" fill="none" stroke-dasharray="15 10" />
+  <circle cx="250" cy="250" r="180" stroke="#58a6ff" stroke-width="2" fill="none" opacity="0.3" />
+  
+  <!-- Центральна блискавка (Символ Flick) -->
+  <path d="M280 80L150 280H230L200 420L330 220H250L280 80Z" fill="#58a6ff">
+    <animate attributeName="opacity" values="1;0.6;1" dur="2s" repeatCount="indefinite" />
+  </path>
 
-    <div class="icon">
-        <div class="radar"></div>
-    </div>
-
-</body>
-</html>
+  <!-- Перехрестя прицілу -->
+  <line x1="250" y1="20" x2="250" y2="70" stroke="#58a6ff" stroke-width="10" />
+  <line x1="250" y1="430" x2="250" y2="480" stroke="#58a6ff" stroke-width="10" />
+  <line x1="20" y1="250" x2="70" y2="250" stroke="#58a6ff" stroke-width="10" />
+  <line x1="430" y1="250" x2="480" y2="250" stroke="#58a6ff" stroke-width="10" />
+</svg>
