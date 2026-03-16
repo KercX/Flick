@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html style="height: 100%; margin: 0; background: #0d1117;">
-<body style="height: 100%; margin: 0; display: flex; justify-content: center; align-items: center;">
-
-    <!-- Твоя PNG іконка -->
-    <img src="assets/logo.png" style="width: 500px; height: auto;">
-
-</body>
-</html>
+<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org">
+  <circle cx="250" cy="250" r="240" stroke="#58a6ff" stroke-width="10"/>
+  <path d="M100 250C100 250 160 150 250 150C340 150 400 250 400 250C400 250 340 350 250 350C160 350 100 250 100 250Z" stroke="#58a6ff" stroke-width="8"/>
+  <circle cx="250" cy="250" r="40" fill="#58a6ff"/>
+  <path d="M230 180L280 240L220 260L270 320" stroke="#ffeb3b" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
