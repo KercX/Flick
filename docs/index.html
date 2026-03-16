@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flick OSINT | Dashboard</title>
+    <style>
+        :root { --bg: #0d1117; --side: #161b22; --accent: #58a6ff; --text: #adbac7; --success: #238636; }
+        body { margin: 0; display: flex; height: 100vh; background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; }
+        
+        .sidebar { width: 280px; background: var(--side); border-right: 1px solid #30363d; display: flex; flex-direction: column; }
+        .logo-area { padding: 25px; text-align: center; border-bottom: 1px solid #30363d; }
+        .logo-svg { width: 70px; filter: drop-shadow(0 0 10px var(--accent)); }
+        
+        .nav-btn { padding: 15px 20px; border: none; background: none; color: var(--text); text-align: left; cursor: pointer; font-size: 15px; border-bottom: 1px solid #21262d; width: 100%; }
+        .nav-btn:hover { background: #21262d; color: var(--accent); }
+        .active { border-left: 5px solid var(--accent); background: #21262d; color: var(--accent); }
+
+        .main { flex: 1; padding: 40px; overflow-y: auto; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        .card { background: #161b22; padding: 20px; border-radius: 10px; border: 1px solid #30363d; margin-bottom: 20px; }
+        input[type="text"] { background: #0d1117; border: 1px solid var(--accent); color: white; padding: 10px; width: 250px; border-radius: 5px; }
+        .test-btn { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .result-box { margin-top: 20px; display: none; }
+        .social-link { display: block; margin: 10px 0; color: var(--accent); text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="logo-area">
+        <svg class="logo-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org">
+            <circle cx="250" cy="250" r="200" stroke="#58a6ff" stroke-width="15" fill="none"/>
+            <path d="M280 100 L180 270 H250 L220 400 L320 230 H250 L280 100 Z" fill="#58a6ff"/>
+        </svg>
+        <h2 style="color:var(--accent)">FLICK v1.3</h2>
+    </div>
+    <button class="nav-btn active" onclick="openTab(event, 'home')">🏠 Home</button>
+    <button class="nav-btn" onclick="openTab(event, 'test')">🧪 Test Engine</button>
+    <button class="nav-btn" onclick="openTab(event, 'social')">🔍 Social Intelligence</button>
+    <button class="nav-btn" onclick="openTab(event, 'docs')">📖 Documentation</button>
+</div>
+
+<div class="main">
+    <div id="home" class="tab-content active">
+        <h1>Welcome to Flick OSINT</h1>
+        <div class="card">
+            <p>This is your central command for digital investigations. Use the <b>Test Engine</b> to simulate a live search.</p>
+        </div>
+    </div>
+
+    <!-- Твоя нова вкладка Test -->
+    <div id="test" class="tab-content">
+        <h1>🧪 Live Test Simulator</h1>
+        <div class="card">
+            <p>Enter a username or phone number (for WhatsApp) to test links:</p>
+            <input type="text" id="targetInput" placeholder="Enter target name...">
+            <button class="test-btn" onclick="runTest()">Analyze Target</button>
+
+            <div id="results" class="result-box">
+                <hr style="border: 0.5px solid #30363d;">
+                <h3>Results for <span id="resTarget" style="color:var(--accent)"></span>:</h3>
+                <a id="linkTikTok" class="social-link" target="_blank">📱 TikTok Profile</a>
+                <a id="linkYoutube" class="social-link" target="_blank">🎥 YouTube Channel</a>
+                <a id="linkWA" class="social-link" target="_blank">💬 WhatsApp Chat</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="social" class="tab-content">
+        <h1>Social Network Analysis</h1>
+        <p>Active modules: TikTok, YouTube, WhatsApp API integration.</p>
+    </div>
+
+    <div id="docs" class="tab-content">
+        <h1>Docs</h1>
+        <p>Run <code>python main.py</code> in your terminal for the full experience.</p>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, navbtn;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) tabcontent[i].style.display = "none";
+        navbtn = document.getElementsByClassName("nav-btn");
+        for (i = 0; i < navbtn.length; i++) navbtn[i].className = navbtn[i].className.replace(" active", "");
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    function runTest() {
+        var target = document.getElementById('targetInput').value;
+        if (!target) return alert('Enter something first!');
+        
+        document.getElementById('resTarget').innerText = target;
+        document.getElementById('results').style.display = 'block';
+        
+        // Генеруємо посилання
+        document.getElementById('linkTikTok').href = 'https://www.tiktok.com@' + target;
+        document.getElementById('linkYoutube').href = 'https://www.youtube.com@' + target;
+        document.getElementById('linkWA').href = 'https://wa.me' + target;
+    }
+</script>
+
+</body>
+</html>
