@@ -1,16 +1,14 @@
 <svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org">
-  <!-- Фон і зовнішнє коло радара -->
-  <circle cx="250" cy="250" r="230" stroke="#58a6ff" stroke-width="12" fill="none" stroke-dasharray="15 10" />
-  <circle cx="250" cy="250" r="180" stroke="#58a6ff" stroke-width="2" fill="none" opacity="0.3" />
-  
-  <!-- Центральна блискавка (Символ Flick) -->
-  <path d="M280 80L150 280H230L200 420L330 220H250L280 80Z" fill="#58a6ff">
-    <animate attributeName="opacity" values="1;0.6;1" dur="2s" repeatCount="indefinite" />
+  <rect width="500" height="500" fill="#0d1117"/>
+  <!-- Приціл -->
+  <circle cx="250" cy="250" r="200" stroke="#00ff00" stroke-width="2" fill="none" opacity="0.3"/>
+  <circle cx="250" cy="250" r="150" stroke="#00ff00" stroke-width="1" fill="none" opacity="0.2"/>
+  <line x1="250" y1="30" x2="250" y2="80" stroke="#00ff00" stroke-width="4"/>
+  <line x1="250" y1="420" x2="250" y2="470" stroke="#00ff00" stroke-width="4"/>
+  <line x1="30" y1="250" x2="80" y2="250" stroke="#00ff00" stroke-width="4"/>
+  <line x1="420" y1="250" x2="470" y2="250" stroke="#00ff00" stroke-width="4"/>
+  <!-- Блискавка Flick -->
+  <path d="M280 120L170 270H240L210 380L320 230H250L280 120Z" fill="#00ff00">
+    <animate attributeName="opacity" values="1;0.4;1" dur="1.5s" repeatCount="indefinite" />
   </path>
-
-  <!-- Перехрестя прицілу -->
-  <line x1="250" y1="20" x2="250" y2="70" stroke="#58a6ff" stroke-width="10" />
-  <line x1="250" y1="430" x2="250" y2="480" stroke="#58a6ff" stroke-width="10" />
-  <line x1="20" y1="250" x2="70" y2="250" stroke="#58a6ff" stroke-width="10" />
-  <line x1="430" y1="250" x2="480" y2="250" stroke="#58a6ff" stroke-width="10" />
 </svg>
