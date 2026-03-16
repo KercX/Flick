@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html style="height: 100%; margin: 0; background: #0d1117;">
+<body style="height: 100%; margin: 0; display: flex; justify-content: center; align-items: center;">
+
+    <!-- Твоя PNG іконка -->
+    <img src="assets/logo.png" style="width: 500px; height: auto;">
+
+</body>
+</html>
