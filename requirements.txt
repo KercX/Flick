@@ -1,0 +1,41 @@
+# --- Flick OSINT Engine Core Dependencies ---
+
+# HTTP Requests & Sessions
+requests>=2.31.0
+urllib3>=2.0.0
+httpx>=0.24.0
+
+# Web Scraping & Parsing (TikTok, YouTube, VK, FB)
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+selenium>=4.10.0
+webdriver-manager>=4.0.0
+soupsieve>=2.4.0
+
+# Social Media Specific Tools
+yt-dlp>=2023.7.6
+social-scan>=2.1.0
+holehe>=1.61
+
+# Network & OSINT Analysis
+scapy>=2.5.0
+dnspython>=2.3.0
+whois>=0.9.22
+shodan>=1.29.0
+ipwhois>=1.2.0
+
+# Data Processing & Storage
+pandas>=2.0.0
+numpy>=1.24.0
+json5>=0.9.11
+
+# Backend & API (for JS/TS Integration)
+fastapi>=0.100.0
+uvicorn>=0.22.0
+python-dotenv>=1.0.0
+
+# Utilities
+colorama>=0.4.6
+tqdm>=4.65.0
+termcolor>=2.3.0
+pyyaml>=6.0.0
